@@ -8,13 +8,14 @@ public class ConnectionDB {
 
     public static Connection getDBConnection() {
         Connection dbConnection = null;
+        String dbName = "KaminDatabase";
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
         try {
-            String url = "jdbc:postgresql://localhost:5432/KaminDatabase";
+            String url = "jdbc:postgresql://localhost:5432/" + dbName;
             String login = "postgres";
             String password = "Sana2010";
             dbConnection = DriverManager.getConnection(url, login, password);

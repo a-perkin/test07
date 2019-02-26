@@ -3,16 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
-
-    <changeSet id="001" author="Alex">
-        <sql>
-            CREATE TABLE test_table
-            (
-            id INTEGER,
-            name TEXT
-            );
-        </sql>
-    </changeSet>
-
+    <include file="src/main/resources/liquibase/changeset/01-table-facing.xml"/>
+    <include file="src/main/resources/liquibase/changeset/02-table-materials.xml"/>
     <!-- <includeAll path="src/main/resources/liquibase" /> -->
 </databaseChangeLog>
