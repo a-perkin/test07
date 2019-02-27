@@ -10,9 +10,27 @@ import java.sql.SQLException;
 
 import static com.alex.services.FacingService.*;
 
-@Path("/facing")
+@Path("/facings")
 public class FacingController {
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getAllFacing () throws SQLException {
+
+        return Response.status(200).entity(getFacing()).build();
+    }
+
+    @GET
+    @Path("/one")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response facingByID (
+            @QueryParam("id") int id) throws SQLException {
+        return Response.status(200).entity(getFacingById(id)).build();
+    }
+
+    //не использовать, связь 1 к 1
     @POST
     @Path("/update")
     public Response testInsert(
@@ -25,14 +43,6 @@ public class FacingController {
         return Response.status(200).entity(st1).build();
     }
 
-    @GET
-    @Path("/getFacingById")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response facingByID (
-            @QueryParam("id") int id) throws SQLException {
-        return Response.status(200).entity(getFacingById(id)).build();
-    }
 
     @POST
     @Path("/updateFacing")
@@ -54,14 +64,6 @@ public class FacingController {
         return Response.status(200).entity("Facing with id = " + id + " deleted").build();
     }
 
-    @GET
-    @Path("/getFacing")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response getAllFacing () throws SQLException {
-
-        return Response.status(200).entity(getFacing()).build();
-    }
 
     @GET
     @Path("/deleteMaterial")
@@ -76,7 +78,7 @@ public class FacingController {
     @Path("/addMaterial")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response deleteFacing(
+    public Response addMaterial(
             @QueryParam("id_facing") int id_facing,
             @QueryParam("id_materials") int id_materials,
             @QueryParam("square") double square) throws SQLException {

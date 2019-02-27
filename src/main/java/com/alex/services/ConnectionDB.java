@@ -9,7 +9,7 @@ public class ConnectionDB {
     public static Connection getDBConnection() {
         Connection dbConnection = null;
 
-        String dbName = "KaminDatabase";
+        String dbName = "testdb";
 
         try {
             Class.forName("org.postgresql.Driver");

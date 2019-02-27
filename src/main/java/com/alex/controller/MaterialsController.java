@@ -20,10 +20,10 @@ public class MaterialsController {
     }
 
     @GET
-    @Path("/one")
+    @Path("{id}")
     @Produces("application/json")
     public Response getOneMaterial(
-            @QueryParam("id") int id) throws SQLException {
+            @PathParam("id") int id) throws SQLException {
         return Response.status(200).entity(getMaterialById(id)).build();
     }
 

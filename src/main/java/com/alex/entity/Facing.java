@@ -7,6 +7,7 @@ import java.util.List;
 @Produces("application/json")
 @XmlRootElement(name = "Facing")
 public class Facing {
+
     private int id;
     private String name;
     private List<MaterialsToFacing> materials;

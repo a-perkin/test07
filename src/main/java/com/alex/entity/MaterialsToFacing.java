@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Produces("application/json")
 @XmlRootElement(name = "MaterialsToFacing")
 public class MaterialsToFacing {
+
     private int id;
     private int id_facing;
     private int id_materials;
