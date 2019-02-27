@@ -3,7 +3,14 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
-    <include file="src/main/resources/liquibase/changeset/01-table-facing.xml"/>
-    <include file="src/main/resources/liquibase/changeset/02-table-materials.xml"/>
+
+    <include file="src/main/resources/liquibase/changeset/01-table-materials.xml"/>
+    <include file="src/main/resources/liquibase/changeset/02-table-facing.xml"/>
+    <include file="src/main/resources/liquibase/changeset/03-table-materials_to_facing.xml"/>
+    <include file="src/main/resources/liquibase/changeset/04-table-hearthstone.xml"/>
+    <include file="src/main/resources/liquibase/changeset/05-table-materials_to_hearthstone.xml"/>
+    <include file="src/main/resources/liquibase/changeset/06-table-mantel.xml"/>
+    <include file="src/main/resources/liquibase/changeset/07-table-materials_to_mantel.xml"/>
+
     <!-- <includeAll path="src/main/resources/liquibase" /> -->
 </databaseChangeLog>

@@ -8,7 +8,9 @@ public class ConnectionDB {
 
     public static Connection getDBConnection() {
         Connection dbConnection = null;
+
         String dbName = "KaminDatabase";
+
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {

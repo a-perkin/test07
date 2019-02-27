@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class InitConnection {
+public class InitDB {
     public static void main(String[] args) throws SQLException {
-        CreateBD();
+        //CreateDB("testdb");
+        DropDB("testbd");
     }
 
     public static Connection getConnection() {
@@ -29,8 +30,9 @@ public class InitConnection {
         return dbConn;
     }
 
-    public static void CreateBD(){
-        String sqlCreateDB = "CREATE DATABASE KaminDatabase";
+    //Создать базу данных по названию
+    public static void CreateDB(String sNameDB){
+        String sqlCreateDB = "CREATE DATABASE " + sNameDB;
         Connection dbConn = null;
 
         dbConn = getConnection();
@@ -39,11 +41,30 @@ public class InitConnection {
             statement = dbConn.createStatement();
             statement.executeUpdate(sqlCreateDB);
             statement.close();
-            System.out.println("Database \"KaminDatabase\" created...");
+            System.out.println("Database \"" + sNameDB + "\" created...");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
+
+    //Удалить базу данных по названию
+    public static void DropDB(String sNameDB){
+        String sqlDropDB = "DROP DATABASE " + sNameDB;
+        Connection dbConn = null;
+
+        dbConn = getConnection();
+        Statement statement = null;
+        try {
+            statement = dbConn.createStatement();
+            statement.executeUpdate(sqlDropDB);
+            statement.close();
+            System.out.println("Database \"" + sNameDB + "\" deleted...");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }

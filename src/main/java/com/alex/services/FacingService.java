@@ -47,7 +47,7 @@ public class FacingService extends ConnectionDB {
             for(int i = 0; i < materials.size(); i++) {
                 MaterialsToFacing element = materials.get(i);
 
-                statement = dbConnection.prepareStatement("INSERT INTO  materialstofacing (id_materials, square, id_facing, id) VALUES (?, ?, ?, DEFAULT)", Statement.RETURN_GENERATED_KEYS);
+                statement = dbConnection.prepareStatement("INSERT INTO  materials_to_facing (id_materials, square, id_facing, id) VALUES (?, ?, ?, DEFAULT)", Statement.RETURN_GENERATED_KEYS);
                 statement.setInt(1, element.getId_materials());
                 statement.setDouble(2, element.getSquare());
                 statement.setInt(3, facing.getId());
@@ -120,7 +120,7 @@ public class FacingService extends ConnectionDB {
 
         try {
             dbConnection = getDBConnection();
-            statement = dbConnection.prepareStatement("INSERT INTO  materialsToFacing (id, id_facing, id_materials, square) VALUES (DEFAULT, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement = dbConnection.prepareStatement("INSERT INTO  materials_to_facing (id, id_facing, id_materials, square) VALUES (DEFAULT, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id_facing);
             statement.setInt(2, id_materials);
             statement.setDouble(3, square);
@@ -208,7 +208,7 @@ public class FacingService extends ConnectionDB {
 
             while (rs.next()) {
                 name = rs.getString("name");
-                statement = dbConnection.prepareStatement("SELECT id_materials, square, id_facing, id FROM materialstofacing WHERE id_facing = ?");
+                statement = dbConnection.prepareStatement("SELECT id_materials, square, id_facing, id FROM materials_to_facing WHERE id_facing = ?");
                 statement.setInt(1, id);
                 ResultSet rs1 = statement.executeQuery();
 
@@ -266,7 +266,7 @@ public class FacingService extends ConnectionDB {
             while (rs.next()) {
                 id = rs.getInt("id");
                 name = rs.getString("name");
-                statement1 = dbConnection.prepareStatement("SELECT id_materials, square, id_facing, id FROM materialstofacing WHERE id_facing = ?");
+                statement1 = dbConnection.prepareStatement("SELECT id_materials, square, id_facing, id FROM materials_to_facing WHERE id_facing = ?");
                 statement1.setInt(1, id);
                 ResultSet rs1 = statement1.executeQuery();
                 List<MaterialsToFacing> aoMaterialsToFacing = new ArrayList<>();
@@ -309,11 +309,11 @@ public class FacingService extends ConnectionDB {
 
         try {
             dbConnection = getDBConnection();
-            statement = dbConnection.prepareStatement("DELETE from materialstofacing where ID = ?");
+            statement = dbConnection.prepareStatement("DELETE from materials_to_facing where ID = ?");
             statement.setInt(1, id);
             statement.executeUpdate();
 
-            System.out.println("Row " + id + " in \"materialsToFacing\" is delete!");
+            System.out.println("Row " + id + " in \"materials_to_facing\" is delete!");
 
             statement.close();
 
@@ -337,7 +337,7 @@ public class FacingService extends ConnectionDB {
         MaterialsToFacing addMaterial = null;
         try {
             dbConnection = getDBConnection();
-            statement = dbConnection.prepareStatement("INSERT INTO  materialsToFacing (id, id_facing, id_materials, square) VALUES (DEFAULT, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement = dbConnection.prepareStatement("INSERT INTO  materials_to_facing (id, id_facing, id_materials, square) VALUES (DEFAULT, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id_facing);
             statement.setInt(2, id_materials);
             statement.setDouble(3, square);
