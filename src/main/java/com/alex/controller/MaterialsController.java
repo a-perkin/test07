@@ -31,9 +31,9 @@ public class MaterialsController {
     @Path("/update")
     @Produces("application/json")
     public Response insertInMaterials(
-            @FormParam("name") String name,
-            @FormParam("price") double price,
-            @FormParam("thickness") int thickness) throws SQLException {
+            @QueryParam("name") String name,
+            @QueryParam("price") double price,
+            @QueryParam("thickness") int thickness) throws SQLException {
 
         Materials materials = new Materials(name, price, thickness);
 
@@ -43,7 +43,7 @@ public class MaterialsController {
     @POST
     @Path("/delete")
     public Response deleteFromMaterials(
-            @FormParam("id") int id) throws SQLException {
+            @QueryParam("id") int id) throws SQLException {
         deleteInMaterials(id);
         String resp = "Material with ID="+id+" deleted.";
         return Response.status(200).entity(resp).build();
@@ -52,8 +52,8 @@ public class MaterialsController {
     @POST
     @Path("/updName")
     public Response updateNameMaterial(
-            @FormParam("name") String name,
-            @FormParam("id") int id) throws SQLException {
+            @QueryParam("name") String name,
+            @QueryParam("id") int id) throws SQLException {
 
         updateName(name, id);
 
@@ -64,8 +64,8 @@ public class MaterialsController {
     @POST
     @Path("/updPrice")
     public Response updatePriceMaterial(
-            @FormParam("price") double price,
-            @FormParam("id") int id) throws SQLException {
+            @QueryParam("price") double price,
+            @QueryParam("id") int id) throws SQLException {
 
         updatePrice(price, id);
 
@@ -76,8 +76,8 @@ public class MaterialsController {
     @POST
     @Path("/updThickness")
     public Response updatePriceMaterial(
-            @FormParam("thickness") int thickness,
-            @FormParam("id") int id) throws SQLException {
+            @QueryParam("thickness") int thickness,
+            @QueryParam("id") int id) throws SQLException {
 
         updateThickness(thickness, id);
 

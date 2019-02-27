@@ -15,7 +15,7 @@ public class FacingController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.APPLICATION_JSON)
     public Response getAllFacing () throws SQLException {
 
         return Response.status(200).entity(getFacing()).build();
@@ -24,7 +24,7 @@ public class FacingController {
     @GET
     @Path("/one")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.APPLICATION_JSON)
     public Response facingByID (
             @QueryParam("id") int id) throws SQLException {
         return Response.status(200).entity(getFacingById(id)).build();

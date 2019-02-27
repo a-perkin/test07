@@ -26,7 +26,7 @@ public class FacingService extends ConnectionDB {
         List<MaterialsToFacing> materials;
         materials = facing.getMaterials();
 
-        System.out.println("services... " + materials.toString() + "\n size... " + materials.size());
+        //System.out.println("materials... " + materials.toString() + "\n size... " + materials.size());
 
         try {
             dbConnection = getDBConnection();
@@ -37,7 +37,7 @@ public class FacingService extends ConnectionDB {
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     facing.setId(generatedKeys.getInt(1));
-                    System.out.println("Table \"facing\" is updated!" + "\n" + "name = " + facing.getName() + " " + "id = " + facing.getId());
+                    //System.out.println("Table \"facing\" is updated!" + "\n" + "name = " + facing.getName() + " " + "id = " + facing.getId());
                 }
                 else {
                     throw new SQLException("Creating facings failed, no ID obtained.");
@@ -59,12 +59,13 @@ public class FacingService extends ConnectionDB {
                 try (ResultSet generatedKeys1 = statement.getGeneratedKeys()) {
                     if (generatedKeys1.next()) {
                         element.setId(generatedKeys1.getInt(1));
-                        System.out.println( "id (materialsTofFacing) = " + facing.getId());
+                        //System.out.println( "id (materialsTofFacing) = " + facing.getId());
                     }
                     else {
                         throw new SQLException("Creating facings failed, no ID obtained.");
                     }
                 }
+                //System.out.println("!!! " + element);
             }
             statement.close();
 
@@ -79,7 +80,7 @@ public class FacingService extends ConnectionDB {
                 dbConnection.close();
             }
         }
-        System.out.println(facing.toString());
+        System.out.println("Facing with dependencies material" + facing.toString());
 
         return facing;
     }

@@ -31,7 +31,7 @@ public class Facing {
         return "{" +
                 "\"id\" : " + id +
                 ", \"name\" : \"" + name +
-                "\", \"services\" : " + materials +
+                "\", \"materials\" : " + materials +
                 '}';
     }
 
