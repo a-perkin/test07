@@ -38,7 +38,7 @@ public class MantelService {
 
                 statement = dbConnection.prepareStatement("INSERT INTO  materials_to_mantel (id, id_mantel, id_materials, square) VALUES (DEFAULT, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                 statement.setInt(1, mantel.getId());
-                statement.setInt(2, element.getId_mantel());
+                statement.setInt(2, element.getId_materials());
                 statement.setDouble(3, element.getSquare());
 
                 element.setId_mantel(mantel.getId());
