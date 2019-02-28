@@ -28,7 +28,7 @@ public class HearthstoneController {
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertInFacingJSON(Hearthstone hearthstone) throws SQLException {
+    public Response insertInHearthstoneJSON(Hearthstone hearthstone) throws SQLException {
         Object hearthstone1 = insertInHearthstoneObj(hearthstone);
 
         return Response.status(200).entity(hearthstone1).build();

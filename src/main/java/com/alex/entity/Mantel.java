@@ -1,17 +1,19 @@
 package com.alex.entity;
 
 import javax.ws.rs.Produces;
+import java.util.List;
 
 @Produces("application/json")
 public class Mantel {
 
     private int id;
     private String name;
+    private List<MaterialsToMantel> materials;
 
-    public Mantel(int id, String name) {
-
+    public Mantel(int id, String name, List<MaterialsToMantel> materials) {
         this.id = id;
         this.name = name;
+        this.materials = materials;
     }
 
     public Mantel (){}
@@ -28,6 +30,7 @@ public class Mantel {
     public void setName(String name) {
         this.name = name;
     }
-
+    public List<MaterialsToMantel> getMaterials() { return materials; }
+    public void setMaterials(List<MaterialsToMantel> materials) { this.materials = materials; }
 
 }

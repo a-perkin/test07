@@ -1,45 +1,47 @@
 package com.alex.services;
 
-import com.alex.entity.Hearthstone;
-import com.alex.entity.MaterialsToHearthstone;
+import com.alex.entity.Mantel;
+import com.alex.entity.MaterialsToMantel;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HearthstoneService extends ConnectionDB{
+import static com.alex.services.ConnectionDB.getDBConnection;
 
-    //Засетить в hearthstone со связями с материалами (один ко многому)
-    public static Object insertInHearthstoneObj(Hearthstone hearthstone) throws SQLException {
+public class MantelService {
+
+    //Засетить в mantel со связями с материалами (один ко многому)
+    public static Object insertInMantelObj(Mantel mantel) throws SQLException {
         Connection dbConnection = null;
         PreparedStatement statement = null;
-        List<MaterialsToHearthstone> materials;
-        materials = hearthstone.getMaterials();
+        List<MaterialsToMantel> materials;
+        materials = mantel.getMaterials();
 
         try {
             dbConnection = getDBConnection();
-            statement = dbConnection.prepareStatement("INSERT INTO  hearthstone (id, name) VALUES (DEFAULT, ?)", Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, hearthstone.getName());
+            statement = dbConnection.prepareStatement("INSERT INTO  mantel (id, name) VALUES (DEFAULT, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, mantel.getName());
             statement.executeUpdate();
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    hearthstone.setId(generatedKeys.getInt(1));
+                    mantel.setId(generatedKeys.getInt(1));
                 }
                 else {
-                    throw new SQLException("Creating hearthstone failed, no ID obtained.");
+                    throw new SQLException("Creating mantel failed, no ID obtained.");
                 }
             }
 
             for(int i = 0; i < materials.size(); i++) {
-                MaterialsToHearthstone element = materials.get(i);
+                MaterialsToMantel element = materials.get(i);
 
-                statement = dbConnection.prepareStatement("INSERT INTO  materials_to_hearthstone (id, id_hearthstone, id_materials, square) VALUES (DEFAULT, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                statement.setInt(1, hearthstone.getId());
-                statement.setInt(2, element.getId_materials());
+                statement = dbConnection.prepareStatement("INSERT INTO  materials_to_mantel (id, id_mantel, id_materials, square) VALUES (DEFAULT, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                statement.setInt(1, mantel.getId());
+                statement.setInt(2, element.getId_mantel());
                 statement.setDouble(3, element.getSquare());
 
-                element.setId_hearthstone(hearthstone.getId());
+                element.setId_mantel(mantel.getId());
 
                 statement.executeUpdate();
 
@@ -48,7 +50,7 @@ public class HearthstoneService extends ConnectionDB{
                         element.setId(generatedKeys1.getInt(1));
                     }
                     else {
-                        throw new SQLException("Creating hearthstone failed, no ID obtained.");
+                        throw new SQLException("Creating mantel failed, no ID obtained.");
                     }
                 }
             }
@@ -65,55 +67,55 @@ public class HearthstoneService extends ConnectionDB{
                 dbConnection.close();
             }
         }
-        System.out.println("Hearthstone with dependencies material" + hearthstone.toString());
+        System.out.println("Hearthstone with dependencies material" + mantel.toString());
 
-        return hearthstone;
+        return mantel;
     }
 
-    //Получить лист объектов Hearthstone со связями с материалами
-    public static List<Hearthstone> getHearthstones() throws SQLException {
+    //Получить лист объектов mantel со связями с материалами
+    public static List<Mantel> getMantels() throws SQLException {
         Connection dbConnection = null;
         Statement statement = null;
         PreparedStatement statement1 = null;
         int id;
         int id1;
         int id_materials;
-        int id_hearthstone;
+        int id_mantel;
         double square;
         String name;
         long count = 0;
         long count1 = 0;
-        List<Hearthstone> aoHearthstones = new ArrayList<>();
+        List<Mantel> aoMantels = new ArrayList<>();
 
 
         try {
             dbConnection = getDBConnection();
             statement = dbConnection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT id, name FROM hearthstone");
+            ResultSet rs = statement.executeQuery("SELECT id, name FROM mantel");
 
             while (rs.next()) {
                 id = rs.getInt("id");
                 name = rs.getString("name");
-                statement1 = dbConnection.prepareStatement("SELECT id, id_hearthstone, id_materials, square  FROM materials_to_hearthstone WHERE id_hearthstone = ?");
+                statement1 = dbConnection.prepareStatement("SELECT id, id_mantel, id_materials, square  FROM materials_to_mantel WHERE id_mantel = ?");
                 statement1.setInt(1, id);
                 ResultSet rs1 = statement1.executeQuery();
-                List<MaterialsToHearthstone> aoMaterialsToHearthstone = new ArrayList<>();
+                List<MaterialsToMantel> aoMaterialsToMantel = new ArrayList<>();
 
                 while (rs1.next()) {
                     id1 = rs1.getInt("id");
-                    id_hearthstone = rs1.getInt("id_hearthstone");
+                    id_mantel = rs1.getInt("id_mantel");
                     id_materials = rs1.getInt("id_materials");
                     square = rs1.getDouble("square");
-                    aoMaterialsToHearthstone.add(new MaterialsToHearthstone(id1, id_hearthstone, id_materials, square));
+                    aoMaterialsToMantel.add(new MaterialsToMantel(id1, id_mantel, id_materials, square));
 
                     count1++;
                 }
 
-                aoHearthstones.add(new Hearthstone(id, name, aoMaterialsToHearthstone));
+                aoMantels.add(new Mantel(id, name, aoMaterialsToMantel));
                 count++;
             }
 
-            System.out.println("getHearthstones ...");
+            System.out.println("getMantels ... count: " +  aoMantels.size());
 
             statement.close();
             statement1.close();
@@ -130,7 +132,6 @@ public class HearthstoneService extends ConnectionDB{
             }
         }
 
-        return aoHearthstones;
+        return aoMantels;
     }
-
 }
