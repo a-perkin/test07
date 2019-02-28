@@ -11,6 +11,8 @@
     <include file="src/main/resources/liquibase/changeset/05-table-materials_to_hearthstone.xml"/>
     <include file="src/main/resources/liquibase/changeset/06-table-mantel.xml"/>
     <include file="src/main/resources/liquibase/changeset/07-table-materials_to_mantel.xml"/>
+    <include file="src/main/resources/liquibase/changeset/08-table-fireplace.xml"/>
+    <include file="src/main/resources/liquibase/changeset/09-fireplace-default-value.xml"/>
 
     <!-- <includeAll path="src/main/resources/liquibase" /> -->
 </databaseChangeLog>

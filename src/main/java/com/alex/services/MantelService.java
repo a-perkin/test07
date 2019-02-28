@@ -67,7 +67,7 @@ public class MantelService {
                 dbConnection.close();
             }
         }
-        System.out.println("Hearthstone with dependencies material" + mantel.toString());
+        System.out.println("Set MANTEL with dependencies material" + mantel.toString());
 
         return mantel;
     }
