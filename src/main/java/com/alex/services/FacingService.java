@@ -1,6 +1,7 @@
 package com.alex.services;
 
 import com.alex.entity.Facing;
+import com.alex.entity.Materials;
 import com.alex.entity.MaterialsToFacing;
 import com.alex.services.ConnectionDB;
 
@@ -20,7 +21,7 @@ public class FacingService extends ConnectionDB {
         //System.out.println(st);
     }
 
-    public static Object insertInFacingObj(Facing facing) throws SQLException {
+    public static Facing insertInFacingObj(Facing facing) throws SQLException {
         Connection dbConnection = null;
         PreparedStatement statement = null;
         List<MaterialsToFacing> materials;
@@ -188,7 +189,7 @@ public class FacingService extends ConnectionDB {
         }
     }
 
-    public static Object getFacingById(int id) throws SQLException {
+    public static Facing getFacingById(int id) throws SQLException {
         Connection dbConnection = null;
         PreparedStatement statement = null;
 
@@ -198,7 +199,7 @@ public class FacingService extends ConnectionDB {
         int id_facing;
         double square;
         long count1 = 0;
-        Object facing = new Object();
+        Facing facing = new Facing();
         int id1;
 
         try {
@@ -331,7 +332,7 @@ public class FacingService extends ConnectionDB {
         }
     }
 
-    public static Object addMaterialToFacing(int id_facing, int id_materials, double square) throws SQLException {
+    public static MaterialsToFacing addMaterialToFacing(int id_facing, int id_materials, double square) throws SQLException {
         Connection dbConnection = null;
         PreparedStatement statement = null;
         int id;

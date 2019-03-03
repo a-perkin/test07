@@ -18,6 +18,15 @@ public class Hearthstone {
 
     public Hearthstone (){}
 
+    @Override
+    public String toString() {
+        return "Hearthstone{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", materials=" + materials +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

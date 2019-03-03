@@ -12,6 +12,14 @@ public class Materials {
         this.thickness = thickness;
     }
 
+    public Materials(int id, String name, double price, int thickness) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.thickness = thickness;
+    }
+    public Materials(){}
+
     @Override
     public String toString() {
         return "{" +
@@ -20,13 +28,6 @@ public class Materials {
                 "\", \"price\" : " + price +
                 ", \"thickness\" : " +thickness +
                 '}';
-    }
-
-    public Materials(int id, String name, double price, int thickness) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.thickness = thickness;
     }
 
     public int getId() {

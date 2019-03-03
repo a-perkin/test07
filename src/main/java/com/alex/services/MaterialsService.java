@@ -186,14 +186,14 @@ public class MaterialsService extends ConnectionDB {
         return materials;
     }
 
-    public static Object getMaterialById(int id) throws SQLException {
+    public static Materials getMaterialById(int id) throws SQLException {
         Connection dbConnection = null;
         PreparedStatement statement = null;
 
         String name;
         double price;
         int thickness;
-        Object material = new Object();
+        Materials material = new Materials();
 
         try {
             dbConnection = getDBConnection();
@@ -227,7 +227,7 @@ public class MaterialsService extends ConnectionDB {
         return material;
     }
 
-    public static Object insertInMaterialsObj(Materials materials) throws SQLException {
+    public static Materials insertInMaterialsObj(Materials materials) throws SQLException {
         Connection dbConnection = null;
         PreparedStatement statement = null;
         Object returnMaterials = new Object();

@@ -2,32 +2,47 @@ package com.alex.entity;
 
 public class Fireplace {
 
-    private int id;
+    private Integer id;
     private String name;
-    private double price;
-    private Facing facing = new Facing();
-    private Hearthstone hearthstone = new Hearthstone();
-    private Mantel mantel = new Mantel();
+    private Double price;
+    private Integer id_facing;
+    private Integer id_hearthstone;
+    private Integer id_mantel;
 
-    public Fireplace(int id,
-                     String name,
-                     double price,
-                     Facing facing,
-                     Hearthstone hearthstone,
-                     Mantel mantel) {
+    public Fireplace(Integer id, String name, Double price, Integer id_facing, Integer id_hearthstone, Integer id_mantel) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.facing = facing;
-        this.hearthstone = hearthstone;
-        this.mantel = mantel;
+        this.id_facing = id_facing;
+        this.id_hearthstone = id_hearthstone;
+        this.id_mantel = id_mantel;
     }
 
-    public int getId() {
+    public Fireplace(Integer id, String name, Double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Fireplace{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", id_facing=" + id_facing +
+                ", id_hearthstone=" + id_hearthstone +
+                ", id_mantel=" + id_mantel +
+                '}';
+    }
+
+    public Fireplace () {}
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,35 +54,35 @@ public class Fireplace {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public Facing getFacing() {
-        return facing;
+    public Integer getId_facing() {
+        return id_facing;
     }
 
-    public void setFacing(Facing facing) {
-        this.facing = facing;
+    public void setId_facing(Integer id_facing) {
+        this.id_facing = id_facing;
     }
 
-    public Hearthstone getHearthstone() {
-        return hearthstone;
+    public Integer getId_hearthstone() {
+        return id_hearthstone;
     }
 
-    public void setHearthstone(Hearthstone hearthstone) {
-        this.hearthstone = hearthstone;
+    public void setId_hearthstone(Integer id_hearthstone) {
+        this.id_hearthstone = id_hearthstone;
     }
 
-    public Mantel getMantel() {
-        return mantel;
+    public Integer getId_mantel() {
+        return id_mantel;
     }
 
-    public void setMantel(Mantel mantel) {
-        this.mantel = mantel;
+    public void setId_mantel(Integer id_mantel) {
+        this.id_mantel = id_mantel;
     }
 }

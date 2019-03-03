@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
+import static com.alex.services.HearthstoneService.getHearthstoneById;
 import static com.alex.services.HearthstoneService.getHearthstones;
 import static com.alex.services.HearthstoneService.insertInHearthstoneObj;
 
@@ -21,6 +22,15 @@ public class HearthstoneController {
 
         return Response.status(200).entity(getHearthstones()).build();
 
+    }
+
+    @GET
+    @Path("/one")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getHearthstoneOne(
+            @QueryParam("id") int id) throws SQLException {
+
+        return Response.status(200).entity(getHearthstoneById(id)).build();
     }
 
 

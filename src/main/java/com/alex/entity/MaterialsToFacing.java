@@ -13,16 +13,6 @@ public class MaterialsToFacing {
     private int id_materials;
     private double square;
 
-    @Override
-    public String toString() {
-        return "{" +
-                "\"id\" : " + id +
-                ", \"id_facing\" : " + id_facing +
-                ", \"id_materials\" : " + id_materials +
-                ", \"square\" : " + square +
-                '}';
-    }
-
     public MaterialsToFacing(int id, int id_facing, int id_materials, double square){
         this.id = id;
         this.id_facing = id_facing;
@@ -35,8 +25,16 @@ public class MaterialsToFacing {
         this.square = square;
     }
 
-    public MaterialsToFacing(){
+    public MaterialsToFacing(){}
 
+    @Override
+    public String toString() {
+        return "MaterialsToFacing{" +
+                "id=" + id +
+                ", id_facing=" + id_facing +
+                ", id_materials=" + id_materials +
+                ", square=" + square +
+                '}';
     }
 
     public int getId() {

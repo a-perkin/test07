@@ -18,8 +18,17 @@ public class MaterialsToHearthstone {
         this.square = square;
     }
 
-
     public MaterialsToHearthstone() {}
+
+    @Override
+    public String toString() {
+        return "MaterialsToHearthstone{" +
+                "id=" + id +
+                ", id_hearthstone=" + id_hearthstone +
+                ", id_materials=" + id_materials +
+                ", square=" + square +
+                '}';
+    }
 
     public int getId() {
         return id;

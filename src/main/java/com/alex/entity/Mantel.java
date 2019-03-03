@@ -18,6 +18,15 @@ public class Mantel {
 
     public Mantel (){}
 
+    @Override
+    public String toString() {
+        return "Mantel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", materials=" + materials +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

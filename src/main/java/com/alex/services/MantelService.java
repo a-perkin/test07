@@ -134,4 +134,60 @@ public class MantelService {
 
         return aoMantels;
     }
+
+    //Получить один єкземпляр Mantel по ID
+    public static Mantel getMantelById (int id) throws SQLException {
+
+        Connection dbConnection = null;
+        PreparedStatement statement = null;
+        String name;
+        List<MaterialsToMantel> materialsToMantel = new ArrayList<>();
+        int id_materials;
+        int id_mantel;
+        double square;
+        long count1 = 0;
+        Mantel mantel = new Mantel();
+        int id1;
+
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.prepareStatement("SELECT id, name FROM mantel WHERE id = ?");
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                name = rs.getString("name");
+                statement = dbConnection.prepareStatement("SELECT id_materials, square, id_mantel, id FROM materials_to_mantel WHERE id_mantel = ?");
+                statement.setInt(1, id);
+                ResultSet rs1 = statement.executeQuery();
+
+                while (rs1.next()){
+                    id1 = rs1.getInt("id");
+                    id_materials = rs1.getInt("id_materials");
+                    id_mantel = rs1.getInt("id_mantel");
+                    square = rs1.getDouble("square");
+
+                    materialsToMantel.add(new MaterialsToMantel(id1, id_mantel, id_materials, square));
+                    count1++;
+                    System.out.println(materialsToMantel.size());
+                }
+                mantel = new Mantel(id, name, materialsToMantel);
+            }
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+        }
+        System.out.println(mantel.toString());
+        return mantel;
+    }
+
 }

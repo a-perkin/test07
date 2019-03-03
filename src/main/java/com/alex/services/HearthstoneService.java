@@ -133,4 +133,59 @@ public class HearthstoneService extends ConnectionDB{
         return aoHearthstones;
     }
 
+    //Получить один єкземпляр Hearthstone по ID
+    public static Hearthstone getHearthstoneById (int id) throws SQLException {
+
+        Connection dbConnection = null;
+        PreparedStatement statement = null;
+        String name;
+        List<MaterialsToHearthstone> materialsToHearthstone = new ArrayList<>();
+        int id_materials;
+        int id_hearthstone;
+        double square;
+        long count1 = 0;
+        Hearthstone hearthstone = new Hearthstone();
+        int id1;
+
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.prepareStatement("SELECT id, name FROM hearthstone WHERE id = ?");
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                name = rs.getString("name");
+                statement = dbConnection.prepareStatement("SELECT id_materials, square, id_hearthstone, id FROM materials_to_hearthstone WHERE id_hearthstone = ?");
+                statement.setInt(1, id);
+                ResultSet rs1 = statement.executeQuery();
+
+                while (rs1.next()){
+                    id1 = rs1.getInt("id");
+                    id_materials = rs1.getInt("id_materials");
+                    id_hearthstone = rs1.getInt("id_hearthstone");
+                    square = rs1.getDouble("square");
+
+                    materialsToHearthstone.add(new MaterialsToHearthstone(id1, id_hearthstone, id_materials, square));
+                    count1++;
+                    System.out.println(materialsToHearthstone.size());
+                }
+                hearthstone = new Hearthstone(id, name, materialsToHearthstone);
+            }
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+        }
+        System.out.println(hearthstone.toString());
+        return hearthstone;
+    }
+
 }

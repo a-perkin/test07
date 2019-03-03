@@ -19,6 +19,16 @@ public class MaterialsToMantel {
 
     public MaterialsToMantel (){}
 
+    @Override
+    public String toString() {
+        return "MaterialsToMantel{" +
+                "id=" + id +
+                ", id_mantel=" + id_mantel +
+                ", id_materials=" + id_materials +
+                ", square=" + square +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
+import static com.alex.services.MantelService.getMantelById;
 import static com.alex.services.MantelService.getMantels;
 import static com.alex.services.MantelService.insertInMantelObj;
 
@@ -19,6 +20,15 @@ public class MantelController {
 
         return Response.status(200).entity(getMantels()).build();
 
+    }
+
+    @GET
+    @Path("/one")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMantelOne(
+            @QueryParam("id") int id) throws SQLException {
+
+        return Response.status(200).entity(getMantelById(id)).build();
     }
 
 
