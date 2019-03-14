@@ -41,6 +41,15 @@ public class MaterialsController {
     }
 
     @POST
+    @Path("/upd")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public Response addNewMaterial(Materials oMaterial) throws SQLException {
+        System.out.println(oMaterial.toString());
+        return Response.status(200).entity(insertInMaterialsObj(oMaterial)).build();
+    }
+
+    @POST
     @Path("/delete")
     public Response deleteFromMaterials(
             @QueryParam("id") int id) throws SQLException {
