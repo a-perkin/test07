@@ -1,11 +1,13 @@
-const HOST = 'http://localhost:8080';
-
 //показать / скрыть материалы
 let materials = document.getElementById("materials");
 let menuFireplace = document.getElementById("menuFireplace");
 let listMaterials = document.getElementById("listMaterials");
 let menuMaterials = document.getElementById("menuMaterials");
 let aoMaterials = null;
+let oMaterial = {};
+//строка в таблице с материалами
+let sMaterials = "";
+let obj;
 
 let visible = false;
 function showMaterials() {
@@ -18,20 +20,16 @@ function showMaterials() {
     }
 }
 
-//добавить материал к списку
-function addMaterialToList(name, thickness, price) {
-    let sMaterial;
-    let text;
-    sMaterial = document.createElement("li");
-    text = 'Название: ' + name + ' | Толщина: ' + thickness + '| Цена: ' + price;
-    sMaterial.innerHTML = text;
-    listMaterials.appendChild(sMaterial);
-    console.log(sMaterial);
-}
-
 //Добавить материал в таблицу
-function addMaterialToTable() {
+function addMaterialToTable(arr) {
 
+    for (let i = 0; i < arr.length; i++) {
+        obj = arr[i];
+        sMaterials = sMaterials + "<tr id=\"" + obj.id +"\"><td>" + obj.name + "</td><td>" + obj.price + "</td><td>" + obj.thickness + "</td></tr>";
+
+    }
+    let tableMaterials = document.getElementById('tableMaterials');
+    tableMaterials.insertAdjacentHTML('beforeend', sMaterials);
 }
 
 //получить список всех материалов
@@ -41,11 +39,12 @@ menuMaterials.onclick = function () {
         if (xhr.status == 200 && xhr.readyState === 4 && aoMaterials === null){
             aoMaterials = JSON.parse(xhr.response);
             console.log(aoMaterials);
-            for (let i = 0; i < aoMaterials.length; i++) {
-                if (listMaterials.childNodes.length <= aoMaterials.length){
-                    addMaterialToList(aoMaterials[i].name, aoMaterials[i].thickness, aoMaterials[i].price);
-                }
-            }
+            // for (let i = 0; i < aoMaterials.length; i++) {
+            //     if (listMaterials.childNodes.length <= aoMaterials.length){
+            //         addMaterialToList(aoMaterials[i].name, aoMaterials[i].thickness, aoMaterials[i].price);
+            //     }
+            // }
+            addMaterialToTable(aoMaterials);
         }
     };
     xhr.open('GET', '/rest/materials', true);
@@ -54,8 +53,6 @@ menuMaterials.onclick = function () {
 
 //Создать новый материал (новую запись в базе)
 document.forms.material.onsubmit = function() {
-    let oMaterial = {};
-    console.log(oMaterial);
     oMaterial.name = this.elements.sName.value;
     oMaterial.price = parseFloat(this.elements.nPrice.value);
     oMaterial.thickness = parseInt(this.elements.nThickness.value, 10);
