@@ -41,6 +41,35 @@ public class MaterialsService extends ConnectionDB {
         }
     }
 
+    public static Materials updateMaterial(Materials oMaterial) throws SQLException {
+        Connection dbConnection = null;
+        PreparedStatement statement = null;
+
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.prepareStatement("UPDATE materials SET name = ?, price = ?, thickness = ? WHERE id = ?");
+            statement.setString(1, oMaterial.getName());
+            statement.setDouble(2, oMaterial.getPrice());
+            statement.setInt(3, oMaterial.getThickness());
+            statement.setInt(4, oMaterial.getId());
+            statement.executeUpdate();
+
+            System.out.println("Table \"materials\" is updated! Change name, price, thickness");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+        }
+        return oMaterial;
+    }
+
     public static void updatePrice(double price, int id) throws SQLException {
         Connection dbConnection = null;
         PreparedStatement statement = null;

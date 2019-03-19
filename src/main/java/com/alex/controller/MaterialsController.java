@@ -93,4 +93,13 @@ public class MaterialsController {
         String respUpdName = "New thickness is \""+ thickness +"\"";
         return Response.status(200).entity(respUpdName).build();
     }
+
+    @POST
+    @Path("/edit")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public Response updateMaterials(Materials oMaterial) throws SQLException {
+
+        return Response.status(200).entity(updateMaterial(oMaterial)).build();
+    }
 }

@@ -21,17 +21,6 @@ function showMaterials() {
     }
 }
 
-//Добавить материал в таблицу
-// function addMaterialToTable(arr) {
-//
-//     for (let i = 0; i < arr.length; i++) {
-//         obj = arr[i];
-//         sMaterials = sMaterials + "<tr id=\"" + obj.id +"\"><td>" + obj.name + "</td><td>" + obj.price + "</td><td>" + obj.thickness + "</td></tr>";
-//
-//     }
-//     tableMaterials.insertAdjacentHTML('beforeend', sMaterials);
-// }
-//
 //получить список всех материалов + засетить в таблицу
 menuMaterials.onclick = function () {
     let xhr = new XMLHttpRequest();
@@ -43,10 +32,15 @@ menuMaterials.onclick = function () {
                 oMaterial = aoMaterials[i];
                 addSampleRow(oMaterial);
             }
+            let btnsSave = document.getElementsByClassName("Save");
+            for (let i = 0; i < btnsSave.length; i++) {
+                btnsSave[i].style.display = 'none';
+            }
         }
     };
     xhr.open('GET', '/rest/materials', true);
     xhr.send();
+
 };
 
 function addSampleRow(oMaterial) {
@@ -66,17 +60,27 @@ function addSampleRow(oMaterial) {
     let btnEdit = document.createElement('input');
     btnEdit.setAttribute("type", "button");
     btnEdit.setAttribute("value", "Edit");
-    btnEdit.setAttribute("name", "Edit");
+    btnEdit.id = 'btnEdit_' + oMaterial.id;
+    btnEdit.setAttribute("class", "Edit");
     btnEdit.setAttribute("onclick", 'editRowMaterial(this.parentNode.parentNode.id)');
     cellEdit.appendChild(btnEdit);
+
+    let btnSave = document.createElement('input');
+    btnSave.setAttribute("type", "button");
+    btnSave.setAttribute("value", "Save");
+    btnSave.setAttribute("class", "Save");
+    btnSave.id = 'btnSave_' + oMaterial.id;
+    btnSave.setAttribute("onclick", 'saveRowMaterial(this.parentNode.parentNode.id)');
+    cellEdit.appendChild(btnSave);
 
     let btnRemove = document.createElement('input');
     btnRemove.setAttribute("type", "button");
     btnRemove.setAttribute("value", "Remove");
-    btnRemove.setAttribute("name", "Remove");
+    btnRemove.setAttribute("class", "Remove");
     btnRemove.setAttribute("onclick", 'deleteRowMaterial(this.parentNode.parentNode.id)');
     cellRemove.appendChild(btnRemove);
 }
+
 
 function deleteRowMaterial(rowId) {
     let nID = rowId.split('_')[1];
@@ -96,6 +100,46 @@ function deleteRowMaterial(rowId) {
             xhr.send();
         }
     }
+}
+
+//Редактирование строки таблицы материалов
+function editRowMaterial(rowId) {
+    document.getElementById('btnEdit_' + rowId.split('_')[1]).style.display = 'none';
+    document.getElementById('btnSave_' + rowId.split('_')[1]).style.display = 'block';
+
+    let row = document.getElementById(rowId);
+    row.style.background = 'yellow';
+
+    let arrTD = row.childNodes;
+    for(let i = 0; i < arrTD.length - 2; i++){
+        let textArea = document.createElement('input');
+        textArea.value = arrTD[i].innerHTML;
+        arrTD[i].innerHTML = '';
+        arrTD[i].appendChild(textArea);
+    }
+}
+
+function saveRowMaterial(rowId) {
+    document.getElementById('btnSave_' + rowId.split('_')[1]).style.display = 'none';
+    document.getElementById('btnEdit_' + rowId.split('_')[1]).style.display = 'block';
+
+    let row = document.getElementById(rowId);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", '/rest/materials/edit', true);
+    xhr.responseType = 'json';
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    oMaterial.id = rowId.split('_')[1];
+    let arrTD = row.childNodes;
+        if(confirm("Сохранить?")){
+            for(let i = 0; i < arrTD.length - 2; i++) {
+                arrTD[i].innerHTML = arrTD[i].firstChild.value;
+            }
+            oMaterial.name = arrTD[0].innerHTML;
+            oMaterial.price = arrTD[1].innerHTML;
+            oMaterial.thickness = arrTD[2].innerHTML;
+            xhr.send(JSON.stringify(oMaterial));
+        }
+    row.style.background = 'white';
 }
 
 //Создать новый материал (новую запись в базе)
@@ -128,36 +172,6 @@ function addMaterial(obj){
     };
 }
 
-//Редактирование строки таблицы материалов
-function editRowMaterial(rowId) {
-    //let nID = rowId.split('_')[1];
-    //console.log(nID);
-    let row = document.getElementById(rowId);
-    row.setAttribute("currentLine", true);
-    row.style.background = 'yellow';
 
-    let arrTD = row.childNodes;
-    for(let i = 0; i < arrTD.length - 2; i++){
-        let textArea = document.createElement('input');
-        textArea.value = arrTD[i].innerHTML;
-        arrTD[i].innerHTML = '';
-        arrTD[i].appendChild(textArea);
-    }
-    saveRowMaterial(arrTD);
-}
-
-
-function saveRowMaterial(arrTD) {
-    let target = event.target;
-    if (target.nodeName == 'button'){
-        if(confirm("Сохранить?")){
-            for(let i = 0; i < arrTD.length - 2; i++) {
-                arrTD[i].innerHTML = arrTD[i].firstChild.value;
-            }
-        }
-    }
-    console.log(target)
-
-}
 
 
