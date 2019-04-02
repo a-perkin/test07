@@ -101,6 +101,12 @@
     <finalName>test07</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+
+          <plugin>
+              <groupId>com.google.appengine</groupId>
+              <artifactId>appengine-maven-plugin</artifactId>
+              <version>1.9.64</version>
+          </plugin>
         <!-- Liquibase -->
         <plugin>
           <groupId>org.liquibase</groupId>
